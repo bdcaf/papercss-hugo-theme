@@ -1,8 +1,9 @@
 # PaperCSS
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/3e3a0d5d-854f-45f2-9e30-e8a86907956a/deploy-status)](https://app.netlify.com/sites/papercss-hugo-theme/deploys)
-
 A Hugo theme made with PaperCSS, the less formal CSS framework.
+
+This fork was built as companion to [r-hugo-papercss-template](https://github.com/bdcaf/r-hugo-papercss-template).
+
 
 ## Table of contents
 
@@ -61,7 +62,12 @@ Upload your image to [RealFaviconGenerator](https://realfavicongenerator.net/) t
 
 ## Shortcodes
 
-See the [full list of supported shortcodes](https://papercss-hugo-theme.netlify.com/papercss-shortcodes/).
+For page bundles to link to included files.
+
+ - bundle-file `{{< bundle-file name="test.r" caption="description" >}}`
+ - bundle-image `{{< bundle-image name="picture.jpg" caption="description" >}}`
+
+See the [full list of supported shortcodes of the parent theme](https://papercss-hugo-theme.netlify.com/papercss-shortcodes/).
 
 ## Disable toc for a blog post
 
