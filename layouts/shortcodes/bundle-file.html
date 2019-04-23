@@ -1,0 +1,13 @@
+{{- /* 
+from suggestion at https://nilsnh.no/2018/06/10/hugo-how-to-add-support-for-responsive-images-trough-image-processing-and-page-bundles-3/ 
+example use:
+{{< bundle-file name="test.r" caption="Some caption" >}}
+*/ -}}
+{{- $caption := .Get "caption" -}}
+{{- with $.Page.Resources.GetMatch (.Get "name") -}}
+  <a href="{{- .RelPermalink -}}">
+    {{- $caption -}}
+  </a>
+{{- else -}}
+  could not find file
+{{- end -}}
