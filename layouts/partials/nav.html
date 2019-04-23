@@ -1,6 +1,6 @@
 <nav class="border split-nav">
   <div class="nav-brand">
-    <h3><a href="/">{{ .Site.Title }}</a></h3>
+    <h3><a href="{{ .Site.BaseURL }}/">{{ .Site.Title }}</a></h3>
   </div>
   <div class="collapsible">
     <input id="collapsible1" type="checkbox" name="collapsible1">
@@ -13,9 +13,9 @@
     </button>
     <div class="collapsible-body">
       <ul class="inline">
-      {{ range .Site.Menus.nav }}
-        <li><a href="{{ .URL }}">{{ .Name }}</a></li>
-      {{ end }}
+      {{ range .Site.Menus.nav -}}
+        <li><a href="{{ .URL | absURL }}">{{ .Name }}</a></li>
+      {{- end }}
       </ul>
     </div>
   </div>
