@@ -10,9 +10,11 @@
 {{- end -}}
 
 {{ range .Pages }}
-<h2 class="post-list {{ if ne .Params.summary false }}summary{{ end }}">
+<h2 class="post-list 
+  {{- if ne .Params.summary false }}summary{{ end -}}
+  ">
   <a href="{{ .Permalink }}">
-    {{ .Title }}
+    {{- .Title -}}
   </a>
 </h2>
 {{- if .Truncated -}}

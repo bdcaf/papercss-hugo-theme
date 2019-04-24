@@ -3,7 +3,6 @@ languageCode: en-us
 defaultContentLanguage: en
 title: PaperCSS
 theme: papercss-hugo-theme
-googleAnalytics: UA-123456789-1
 
 taxonomies:
   tag: tags
