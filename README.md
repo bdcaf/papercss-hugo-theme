@@ -23,7 +23,7 @@ This fork was built as companion to [r-hugo-papercss-template](https://github.co
 
 ## Demo
 
-https://papercss-hugo-theme.netlify.com/
+https://bdcaf.github.io/papercss-hugo-theme/
 
 ## Minimum Hugo version
 
