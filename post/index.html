@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <meta name="generator" content="Hugo 0.55.3" />
+  <link rel="canonical" href="https://bdcaf.github.io/papercss-hugo-theme/post/">
+
+  
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" type="text/css" href="https://bdcaf.github.io/papercss-hugo-theme/css/paper.css">
+
+  
+  
+  <link rel="stylesheet" type="text/css" href="https://bdcaf.github.io/papercss-hugo-theme/css/custom.css">
+
+  
+  
+  <title>Posts | PaperCSS</title>
+</head>
+  <body>
+    <div class="container paper">
+      <nav class="border split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://bdcaf.github.io/papercss-hugo-theme/">PaperCSS</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+    <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+      <li><a href="https://bdcaf.github.io/papercss-hugo-theme/">Blog</a></li><li><a href="https://bdcaf.github.io/papercss-hugo-theme/tags/">Tags</a></li><li><a href="https://bdcaf.github.io/papercss-hugo-theme/about/">About</a></li><li><a href="https://bdcaf.github.io/papercss-hugo-theme/index.xml">RSS</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+      <main>
+        <h1>Posts</h1>
+<h2 class="post-list summary">
+  <a href="https://bdcaf.github.io/papercss-hugo-theme/creating-a-new-theme/">
+    Creating a New Theme
+  </a>
+</h2>Introduction This tutorial will show you how to create a simple theme in Hugo. I assume that you are familiar with HTML, the bash command line, and that you are comfortable using Markdown to format content. I&rsquo;ll explain how Hugo uses templates and how you can organize your templates to create a theme. I won&rsquo;t cover using CSS to style your theme.
+We&rsquo;ll start with creating a new site with a very basic template.<p class="read-more">
+  <a href="https://bdcaf.github.io/papercss-hugo-theme/creating-a-new-theme/" class="continue">read more..</a>
+</p><hr/>
+
+<h2 class="post-list summary">
+  <a href="https://bdcaf.github.io/papercss-hugo-theme/migrate-from-jekyll/">
+    Migrate to Hugo from Jekyll
+  </a>
+</h2>
+
+<h2 id="move-static-content-to-static">Move static content to <code>static</code></h2>
+
+<p>Jekyll has a rule that any directory not starting with <code>_</code> will be copied as-is to the <code>_site</code> output. Hugo keeps all static content under <code>static</code>. You should therefore move it all there.
+With Jekyll, something that looked like</p>
+
+<pre><code>▾ &lt;root&gt;/
+    ▾ images/
+        logo.png
+</code></pre>
+
+<p>should become</p>
+
+<pre><code>▾ &lt;root&gt;/
+    ▾ static/
+        ▾ images/
+            logo.png
+</code></pre>
+
+<p>Additionally, you&rsquo;ll want any files that should reside at the root (such as <code>CNAME</code>) to be moved to <code>static</code>.</p>
+
+<h2 id="create-your-hugo-configuration-file">Create your Hugo configuration file</h2>
+
+<p>Hugo can read your configuration as JSON, YAML or TOML. Hugo supports parameters custom configuration too. Refer to the <a href="/overview/configuration/">Hugo configuration documentation</a> for details.</p>
+
+<h2 id="set-your-configuration-publish-folder-to-site">Set your configuration publish folder to <code>_site</code></h2>
+
+<p>The default is for Jekyll to publish to <code>_site</code> and for Hugo to publish to <code>public</code>. If, like me, you have <a href="http://blog.blindgaenger.net/generate_github_pages_in_a_submodule.html"><code>_site</code> mapped to a git submodule on the <code>gh-pages</code> branch</a>, you&rsquo;ll want to do one of two alternatives:</p>
+
+<ol>
+<li><p>Change your submodule to point to map <code>gh-pages</code> to public instead of <code>_site</code> (recommended).</p>
+
+<pre><code>git submodule deinit _site
+git rm _site
+git submodule add -b gh-pages git@github.com:your-username/your-repo.git public
+</code></pre></li>
+
+<li><p>Or, change the Hugo configuration to use <code>_site</code> instead of <code>public</code>.</p>
+
+<pre><code>{
+    ..
+    &quot;publishdir&quot;: &quot;_site&quot;,
+    ..
+}
+</code></pre></li>
+</ol>
+
+<h2 id="convert-jekyll-templates-to-hugo-templates">Convert Jekyll templates to Hugo templates</h2>
+
+<p>That&rsquo;s the bulk of the work right here. The documentation is your friend. You should refer to <a href="http://jekyllrb.com/docs/templates/">Jekyll&rsquo;s template documentation</a> if you need to refresh your memory on how you built your blog and <a href="/layout/templates/">Hugo&rsquo;s template</a> to learn Hugo&rsquo;s way.</p>
+
+<p>As a single reference data point, converting my templates for <a href="http://heyitsalex.net/">heyitsalex.net</a> took me no more than a few hours.</p>
+
+<h2 id="convert-jekyll-plugins-to-hugo-shortcodes">Convert Jekyll plugins to Hugo shortcodes</h2>
+
+<p>Jekyll has <a href="http://jekyllrb.com/docs/plugins/">plugins</a>; Hugo has <a href="/doc/shortcodes/">shortcodes</a>. It&rsquo;s fairly trivial to do a port.</p>
+
+<h3 id="implementation">Implementation</h3>
+
+<p>As an example, I was using a custom <a href="https://github.com/alexandre-normand/alexandre-normand/blob/74bb12036a71334fdb7dba84e073382fc06908ec/_plugins/image_tag.rb"><code>image_tag</code></a> plugin to generate figures with caption when running Jekyll. As I read about shortcodes, I found Hugo had a nice built-in shortcode that does exactly the same thing.</p>
+
+<p>Jekyll&rsquo;s plugin:</p>
+
+<pre><code>module Jekyll
+  class ImageTag &lt; Liquid::Tag
+    @url = nil
+    @caption = nil
+    @class = nil
+    @link = nil
+    // Patterns
+    IMAGE_URL_WITH_CLASS_AND_CAPTION =
+    IMAGE_URL_WITH_CLASS_AND_CAPTION_AND_LINK = /(\w+)(\s+)((https?:\/\/|\/)(\S+))(\s+)&quot;(.*?)&quot;(\s+)-&gt;((https?:\/\/|\/)(\S+))(\s*)/i
+    IMAGE_URL_WITH_CAPTION = /((https?:\/\/|\/)(\S+))(\s+)&quot;(.*?)&quot;/i
+    IMAGE_URL_WITH_CLASS = /(\w+)(\s+)((https?:\/\/|\/)(\S+))/i
+    IMAGE_URL = /((https?:\/\/|\/)(\S+))/i
+    def initialize(tag_name, markup, tokens)
+      super
+      if markup =~ IMAGE_URL_WITH_CLASS_AND_CAPTION_AND_LINK
+        @class   = $1
+        @url     = $3
+        @caption = $7
+        @link = $9
+      elsif markup =~ IMAGE_URL_WITH_CLASS_AND_CAPTION
+        @class   = $1
+        @url     = $3
+        @caption = $7
+      elsif markup =~ IMAGE_URL_WITH_CAPTION
+        @url     = $1
+        @caption = $5
+      elsif markup =~ IMAGE_URL_WITH_CLASS
+        @class = $1
+        @url   = $3
+      elsif markup =~ IMAGE_URL
+        @url = $1
+      end
+    end
+    def render(context)
+      if @class
+        source = &quot;&lt;figure class='#{@class}'&gt;&quot;
+      else
+        source = &quot;&lt;figure&gt;&quot;
+      end
+      if @link
+        source += &quot;&lt;a href=\&quot;#{@link}\&quot;&gt;&quot;
+      end
+      source += &quot;&lt;img src=\&quot;#{@url}\&quot;&gt;&quot;
+      if @link
+        source += &quot;&lt;/a&gt;&quot;
+      end
+      source += &quot;&lt;figcaption&gt;#{@caption}&lt;/figcaption&gt;&quot; if @caption
+      source += &quot;&lt;/figure&gt;&quot;
+      source
+    end
+  end
+end
+Liquid::Template.register_tag('image', Jekyll::ImageTag)
+</code></pre>
+
+<p>is written as this Hugo shortcode:</p>
+
+<pre><code>&lt;!-- image --&gt;
+&lt;figure {{ with .Get &quot;class&quot; }}class=&quot;{{.}}&quot;{{ end }}&gt;
+    {{ with .Get &quot;link&quot;}}&lt;a href=&quot;{{.}}&quot;&gt;{{ end }}
+        &lt;img src=&quot;{{ .Get &quot;src&quot; }}&quot; {{ if or (.Get &quot;alt&quot;) (.Get &quot;caption&quot;) }}alt=&quot;{{ with .Get &quot;alt&quot;}}{{.}}{{else}}{{ .Get &quot;caption&quot; }}{{ end }}&quot;{{ end }} /&gt;
+    {{ if .Get &quot;link&quot;}}&lt;/a&gt;{{ end }}
+    {{ if or (or (.Get &quot;title&quot;) (.Get &quot;caption&quot;)) (.Get &quot;attr&quot;)}}
+    &lt;figcaption&gt;{{ if isset .Params &quot;title&quot; }}
+        {{ .Get &quot;title&quot; }}{{ end }}
+        {{ if or (.Get &quot;caption&quot;) (.Get &quot;attr&quot;)}}&lt;p&gt;
+        {{ .Get &quot;caption&quot; }}
+        {{ with .Get &quot;attrlink&quot;}}&lt;a href=&quot;{{.}}&quot;&gt; {{ end }}
+            {{ .Get &quot;attr&quot; }}
+        {{ if .Get &quot;attrlink&quot;}}&lt;/a&gt; {{ end }}
+        &lt;/p&gt; {{ end }}
+    &lt;/figcaption&gt;
+    {{ end }}
+&lt;/figure&gt;
+&lt;!-- image --&gt;
+</code></pre>
+
+<h3 id="usage">Usage</h3>
+
+<p>I simply changed:</p>
+
+<pre><code>{% image full http://farm5.staticflickr.com/4136/4829260124_57712e570a_o_d.jpg &quot;One of my favorite touristy-type photos. I secretly waited for the good light while we were &quot;having fun&quot; and took this. Only regret: a stupid pole in the top-left corner of the frame I had to clumsily get rid of at post-processing.&quot; -&gt;http://www.flickr.com/photos/alexnormand/4829260124/in/set-72157624547713078/ %}
+</code></pre>
+
+<p>to this (this example uses a slightly extended version named <code>fig</code>, different than the built-in <code>figure</code>):</p>
+
+<pre><code>{{% fig class=&quot;full&quot; src=&quot;http://farm5.staticflickr.com/4136/4829260124_57712e570a_o_d.jpg&quot; title=&quot;One of my favorite touristy-type photos. I secretly waited for the good light while we were having fun and took this. Only regret: a stupid pole in the top-left corner of the frame I had to clumsily get rid of at post-processing.&quot; link=&quot;http://www.flickr.com/photos/alexnormand/4829260124/in/set-72157624547713078/&quot; %}}
+</code></pre>
+
+<p>As a bonus, the shortcode named parameters are, arguably, more readable.</p>
+
+<h2 id="finishing-touches">Finishing touches</h2>
+
+<h3 id="fix-content">Fix content</h3>
+
+<p>Depending on the amount of customization that was done with each post with Jekyll, this step will require more or less effort. There are no hard and fast rules here except that <code>hugo server --watch</code> is your friend. Test your changes and fix errors as needed.</p>
+
+<h3 id="clean-up">Clean up</h3>
+
+<p>You&rsquo;ll want to remove the Jekyll configuration at this point. If you have anything else that isn&rsquo;t used, delete it.</p>
+
+<h2 id="a-practical-example-in-a-diff">A practical example in a diff</h2>
+
+<p><a href="http://heyitsalex.net/">Hey, it&rsquo;s Alex</a> was migrated in less than a <em>father-with-kids day</em> from Jekyll to Hugo. You can see all the changes (and screw-ups) by looking at this <a href="https://github.com/alexandre-normand/alexandre-normand/compare/869d69435bd2665c3fbf5b5c78d4c22759d7613a...b7f6605b1265e83b4b81495423294208cc74d610">diff</a>.</p>
+<hr/>
+
+<h2 class="post-list summary">
+  <a href="https://bdcaf.github.io/papercss-hugo-theme/papercss-shortcodes/">
+    Papercss Shortcodes
+  </a>
+</h2>
+
+<h2 id="border">border</h2>
+
+<pre><code>{{&lt; border &gt;}}
+Regular
+{{&lt; /border &gt;}}
+
+{{&lt; border &quot;dashed&quot; &gt;}}
+Dashed
+{{&lt; /border &gt;}}
+
+{{&lt; border &quot;dotted&quot; &gt;}}
+Dotted
+{{&lt; /border &gt;}}
+
+{{&lt; border &quot;dashed thick&quot; &gt;}}
+Dashed Thick
+{{&lt; /border &gt;}}
+
+{{&lt; border &quot;dotted thick&quot; &gt;}}
+Dotted Thick
+{{&lt; /border &gt;}}
+</code></pre>
+
+
+
+
+
+<div class="child-borders">
+  <p class="sm col ">
+    
+Regular
+
+  </p>
+</div>
+
+
+
+
+  
+
+
+<div class="child-borders">
+  <p class="sm col border-dashed">
+    
+Dashed
+
+  </p>
+</div>
+
+
+
+
+  
+
+
+<div class="child-borders">
+  <p class="sm col border-dotted">
+    
+Dotted
+
+  </p>
+</div>
+
+
+
+
+  
+
+
+<div class="child-borders">
+  <p class="sm col border-dashed border-thick">
+    
+Dashed Thick
+
+  </p>
+</div>
+
+
+
+
+  
+
+
+<div class="child-borders">
+  <p class="sm col border-dotted border-thick">
+    
+Dotted Thick
+
+  </p>
+</div>
+
+<h2 id="color">color</h2>
+
+<pre><code>{{&lt; color &quot;primary&quot; &gt;}}
+Text primary
+{{&lt; /color &gt;}}
+
+{{&lt; color &quot;secondary&quot; &gt;}}
+Text secondary
+{{&lt; /color &gt;}}
+
+{{&lt; color &quot;success&quot; &gt;}}
+Text success
+{{&lt; /color &gt;}}
+
+{{&lt; color &quot;warning&quot; &gt;}}
+Text warning
+{{&lt; /color &gt;}}
+
+{{&lt; color &quot;danger&quot; &gt;}}
+Text danger
+{{&lt; /color &gt;}}
+
+{{&lt; color &quot;muted&quot; &gt;}}
+Text muted
+{{&lt; /color &gt;}}
+</code></pre>
+
+<p class="text-primary">
+  
+Text primary
+
+</p>
+
+<p class="text-secondary">
+  
+Text secondary
+
+</p>
+
+<p class="text-success">
+  
+Text success
+
+</p>
+
+<p class="text-warning">
+  
+Text warning
+
+</p>
+
+<p class="text-danger">
+  
+Text danger
+
+</p>
+
+<p class="text-muted">
+  
+Text muted
+
+</p>
+
+<h2 id="background">background</h2>
+
+<pre><code>{{&lt; background &quot;primary&quot; &gt;}}
+Background primary
+{{&lt; /background &gt;}}
+
+{{&lt; background &quot;secondary&quot; &gt;}}
+Background secondary
+{{&lt; /background &gt;}}
+
+{{&lt; background &quot;success&quot; &gt;}}
+Background success
+{{&lt; /background &gt;}}
+
+{{&lt; background &quot;warning&quot; &gt;}}
+Background warning
+{{&lt; /background &gt;}}
+
+{{&lt; background &quot;danger&quot; &gt;}}
+Background danger
+{{&lt; /background &gt;}}
+</code></pre>
+
+<p class="sm col background-primary">
+  
+Background primary
+
+</p>
+
+<p class="sm col background-secondary">
+  
+Background secondary
+
+</p>
+
+<p class="sm col background-success">
+  
+Background success
+
+</p>
+
+<p class="sm col background-warning">
+  
+Background warning
+
+</p>
+
+<p class="sm col background-danger">
+  
+Background danger
+
+</p>
+
+<h2 id="alert">alert</h2>
+
+<pre><code>{{&lt; alert &quot;primary&quot; &gt;}}
+Alert-primary
+{{&lt; /alert &gt;}}
+
+{{&lt; alert &quot;secondary&quot; &gt;}}
+Alert-secondary
+{{&lt; /alert &gt;}}
+
+{{&lt; alert &quot;success&quot; &gt;}}
+Alert-success
+{{&lt; /alert &gt;}}
+
+{{&lt; alert &quot;warning&quot; &gt;}}
+Alert-warning
+{{&lt; /alert &gt;}}
+
+{{&lt; alert &quot;danger&quot; &gt;}}
+Alert-danger
+{{&lt; /alert &gt;}}
+</code></pre>
+
+<p class="alert alert-primary">
+  
+Alert-primary
+
+</p>
+
+<p class="alert alert-secondary">
+  
+Alert-secondary
+
+</p>
+
+<p class="alert alert-success">
+  
+Alert-success
+
+</p>
+
+<p class="alert alert-warning">
+  
+Alert-warning
+
+</p>
+
+<p class="alert alert-danger">
+  
+Alert-danger
+
+</p>
+
+<h2 id="badge">badge</h2>
+
+<pre><code>&lt;h3&gt;Example badge {{&lt; badge &gt;}}123{{&lt; /badge &gt;}}&lt;/h3&gt;
+
+&lt;h3&gt;Example badge {{&lt; badge &quot;secondary&quot; &gt;}}123{{&lt; /badge &gt;}}&lt;/h3&gt;
+
+&lt;h3&gt;Example badge {{&lt; badge &quot;success&quot; &gt;}}123{{&lt; /badge &gt;}}&lt;/h3&gt;
+
+&lt;h3&gt;Example badge {{&lt; badge &quot;warning&quot; &gt;}}123{{&lt; /badge &gt;}}&lt;/h3&gt;
+
+&lt;h3&gt;Example badge {{&lt; badge &quot;danger&quot; &gt;}}123{{&lt; /badge &gt;}}&lt;/h3&gt;
+</code></pre>
+
+<h3>Example badge <span class="badge ">
+  123
+</span></h3>
+
+<h3>Example badge <span class="badge secondary">
+  123
+</span></h3>
+
+<h3>Example badge <span class="badge success">
+  123
+</span></h3>
+
+<h3>Example badge <span class="badge warning">
+  123
+</span></h3>
+
+<h3>Example badge <span class="badge danger">
+  123
+</span></h3>
+
+<h2 id="card">card</h2>
+
+<p>The <code>img</code> param accepts an <a href="https://gohugo.io/content-management/page-resources/">image page resource</a> name.</p>
+
+<p>The <code>command</code> and <code>options</code> params accept <a href="https://gohugo.io/content-management/image-processing/#readout">image processing</a> args.</p>
+
+<p>Required params: <code>img</code>, <code>command</code>, <code>options</code>.</p>
+
+<p>Optional params: <code>title</code>, <code>subtitle</code>, <code>text</code>.</p>
+
+<pre><code>{{&lt; card
+img=&quot;sun.jpg&quot;
+command=&quot;Resize&quot;
+options=&quot;900x&quot;
+title=&quot;The Sun&quot;
+subtitle=&quot;It's the Sun, dude&quot;
+text=&quot;The Sun is the star at the center of the Solar System. It is a nearly perfect sphere of hot plasma, with internal convective motion that generates a magnetic field via a dynamo process. It is by far the most important source of energy for life on Earth. [Credits](https://images.nasa.gov/details-GSFC_20171208_Archive_e000393.html).&quot; &gt;}}
+</code></pre>
+
+
+
+
+
+
+
+
+
+  
+
+
+<div class="card row flex-center" style="">
+  <a href="https://bdcaf.github.io/papercss-hugo-theme/papercss-shortcodes/sun.jpg" class="img-link">
+    <img src="https://bdcaf.github.io/papercss-hugo-theme/papercss-shortcodes/sun_huc3d26fbb16c0f70400041133778c1446_3118921_900x0_resize_q99_box.jpg">
+  </a>
+  <div class="card-body">
+  
+    <h4 class="card-title">The Sun</h4>
+  
+  
+    <h5 class="card-subtitle">It&rsquo;s the Sun, dude</h5>
+  
+  
+    <p class="card-text">The Sun is the star at the center of the Solar System. It is a nearly perfect sphere of hot plasma, with internal convective motion that generates a magnetic field via a dynamo process. It is by far the most important source of energy for life on Earth. <a href="https://images.nasa.gov/details-GSFC_20171208_Archive_e000393.html">Credits</a>.</p>
+  
+  </div>
+</div>
+<hr/>
+
+<h2 class="post-list summary">
+  <a href="https://bdcaf.github.io/papercss-hugo-theme/papercss-typography/">
+    PaperCSS Typography
+  </a>
+</h2>
+
+<h2 id="headings">Headings</h2>
+
+<pre><code># Heading 1
+## Heading 2
+### Heading 3
+#### Heading 4
+##### Heading 5
+###### Heading 6
+</code></pre>
+
+<h1 id="heading-1">Heading 1</h1>
+
+<h2 id="heading-2">Heading 2</h2>
+
+<h3 id="heading-3">Heading 3</h3>
+
+<h4 id="heading-4">Heading 4</h4>
+
+<h5 id="heading-5">Heading 5</h5>
+
+<h6 id="heading-6">Heading 6</h6>
+
+<h2 id="text">Text</h2>
+
+<pre><code>*This text will be italic*
+_This will also be italic_
+
+**This text will be bold**
+__This will also be bold__
+
+_You **can** combine them_
+</code></pre>
+
+<p><em>This text will be italic</em></p>
+
+<p><em>This will also be italic</em></p>
+
+<p><strong>This text will be bold</strong></p>
+
+<p><strong>This will also be bold</strong></p>
+
+<p><em>You <strong>can</strong> combine them</em></p>
+
+<h2 id="lists">Lists</h2>
+
+<h3 id="unordered">Unordered</h3>
+
+<pre><code>* Item 1
+* Item 2
+    * Item 2a
+    * Item 2b
+</code></pre>
+
+<ul>
+<li>Item 1</li>
+<li>Item 2
+
+<ul>
+<li>Item 2a</li>
+<li>Item 2b</li>
+</ul></li>
+</ul>
+
+<h3 id="ordered">Ordered</h3>
+
+<pre><code>1. Item 1
+1. Item 2
+1. Item 3
+    1. Item 3a
+    1. Item 3b
+</code></pre>
+
+<ol>
+<li>Item 1</li>
+<li>Item 2</li>
+<li>Item 3
+
+<ol>
+<li>Item 3a</li>
+<li>Item 3b</li>
+</ol></li>
+</ol>
+
+<h2 id="links">Links</h2>
+
+<pre><code>https://papercss-hugo-theme.netlify.com/
+
+[PaperCSS Hugo theme](https://papercss-hugo-theme.netlify.com/)
+</code></pre>
+
+<p><a href="https://papercss-hugo-theme.netlify.com/">https://papercss-hugo-theme.netlify.com/</a></p>
+
+<p><a href="https://papercss-hugo-theme.netlify.com/">PaperCSS Hugo theme</a></p>
+
+<h2 id="blockquotes">Blockquotes</h2>
+
+<pre><code>As Kanye West said:
+
+&gt; We're living the future so
+&gt; the present is our past.
+</code></pre>
+
+<p>As Kanye West said:</p>
+
+<blockquote>
+<p>We&rsquo;re living the future so
+the present is our past.</p>
+</blockquote>
+
+<h2 id="tables">Tables</h2>
+
+<pre><code>| Animal  | Sounds |
+|---------|--------|
+| Cat     | Meow   |
+| Dog     | Woof   |
+| Cricket | Chirp  |
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>Animal</th>
+<th>Sounds</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Cat</td>
+<td>Meow</td>
+</tr>
+
+<tr>
+<td>Dog</td>
+<td>Woof</td>
+</tr>
+
+<tr>
+<td>Cricket</td>
+<td>Chirp</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="inline-code">Inline code</h2>
+
+<pre><code>This `&lt;html&gt;` tag is inline code.
+</code></pre>
+
+<p>This <code>&lt;html&gt;</code> tag is inline code.</p>
+
+<h2 id="block-code">Block code</h2>
+
+<pre><code>This
+
+```
+&lt;html&gt;
+```
+
+tag is block code. 
+</code></pre>
+
+<p>This</p>
+
+<pre><code>&lt;html&gt;
+</code></pre>
+
+<p>tag is block code.</p>
+<hr/>
+
+<h2 class="post-list summary">
+  <a href="https://bdcaf.github.io/papercss-hugo-theme/goisforlovers/">
+    (Hu)go Template Primer
+  </a>
+</h2>Hugo uses the excellent Go html/template library for its template engine. It is an extremely lightweight engine that provides a very small amount of logic. In our experience that it is just the right amount of logic to be able to create a good static website. If you have used other template systems from different languages or frameworks you will find a lot of similarities in Go templates.
+This document is a brief primer on using Go templates.<p class="read-more">
+  <a href="https://bdcaf.github.io/papercss-hugo-theme/goisforlovers/" class="continue">read more..</a>
+</p><hr/>
+
+<h2 class="post-list summary">
+  <a href="https://bdcaf.github.io/papercss-hugo-theme/hugoisforlovers/">
+    Getting Started with Hugo
+  </a>
+</h2>
+
+<h2 id="step-1-install-hugo">Step 1. Install Hugo</h2>
+
+<p>Go to <a href="https://github.com/spf13/hugo/releases">Hugo releases</a> and download the
+appropriate version for your OS and architecture.</p>
+
+<p>Save it somewhere specific as we will be using it in the next step.</p>
+
+<p>More complete instructions are available at <a href="https://gohugo.io/getting-started/installing/">Install Hugo</a></p>
+
+<h2 id="step-2-build-the-docs">Step 2. Build the Docs</h2>
+
+<p>Hugo has its own example site which happens to also be the documentation site
+you are reading right now.</p>
+
+<p>Follow the following steps:</p>
+
+<ol>
+<li>Clone the <a href="http://github.com/spf13/hugo">Hugo repository</a></li>
+<li>Go into the repo</li>
+<li>Run hugo in server mode and build the docs</li>
+<li>Open your browser to <a href="http://localhost:1313">http://localhost:1313</a></li>
+</ol>
+
+<p>Corresponding pseudo commands:</p>
+
+<pre><code>git clone https://github.com/spf13/hugo
+cd hugo
+/path/to/where/you/installed/hugo server --source=./docs
+&gt; 29 pages created
+&gt; 0 tags index created
+&gt; in 27 ms
+&gt; Web Server is available at http://localhost:1313
+&gt; Press ctrl+c to stop
+</code></pre>
+
+<p>Once you&rsquo;ve gotten here, follow along the rest of this page on your local build.</p>
+
+<h2 id="step-3-change-the-docs-site">Step 3. Change the docs site</h2>
+
+<p>Stop the Hugo process by hitting Ctrl+C.</p>
+
+<p>Now we are going to run hugo again, but this time with hugo in watch mode.</p>
+
+<pre><code>/path/to/hugo/from/step/1/hugo server --source=./docs --watch
+&gt; 29 pages created
+&gt; 0 tags index created
+&gt; in 27 ms
+&gt; Web Server is available at http://localhost:1313
+&gt; Watching for changes in /Users/spf13/Code/hugo/docs/content
+&gt; Press ctrl+c to stop
+</code></pre>
+
+<p>Open your <a href="http://vim.spf13.com">favorite editor</a> and change one of the source
+content pages. How about changing this very file to <em>fix the typo</em>. How about changing this very file to <em>fix the typo</em>.</p>
+
+<p>Content files are found in <code>docs/content/</code>. Unless otherwise specified, files
+are located at the same relative location as the url, in our case
+<code>docs/content/overview/quickstart.md</code>.</p>
+
+<p>Change and save this file.. Notice what happened in your terminal.</p>
+
+<pre><code>&gt; Change detected, rebuilding site
+
+&gt; 29 pages created
+&gt; 0 tags index created
+&gt; in 26 ms
+</code></pre>
+
+<p>Refresh the browser and observe that the typo is now fixed.</p>
+
+<p>Notice how quick that was. Try to refresh the site before it&rsquo;s finished building. I double dare you.
+Having nearly instant feedback enables you to have your creativity flow without waiting for long builds.</p>
+
+<h2 id="step-4-have-fun">Step 4. Have fun</h2>
+
+<p>The best way to learn something is to play with it.</p>
+<hr/>
+
+      </main>
+  </div>
+  </body>
+</html>
