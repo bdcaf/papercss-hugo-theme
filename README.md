@@ -5,6 +5,7 @@ A Hugo theme made with PaperCSS, the less formal CSS framework.
 A fork of [papercss-hugo-theme](https://github.com/zwbetz-gh/papercss-hugo-theme).
 This fork was built as companion to [r-hugo-papercss-template](https://github.com/bdcaf/r-hugo-papercss-template).
 
+This branch contains the scss files from [papercss](https://github.com/papercss/papercss) version 1.6.1.
 
 ## Table of contents
 
