@@ -6,8 +6,12 @@ example use:
 */ -}}
 {{- $caption := .Get "caption" -}}
 {{- $altText := .Get "alt" -}}
+{{- $class := .Get "class" -}}
 {{- with $.Page.Resources.GetMatch (.Get "name") -}}
-<figure>
+<figure 
+  {{ if $class -}}
+  class = "{{$class}}"
+  {{- end -}} >
   <a href="{{- .RelPermalink -}}">
     {{- /* image */ -}}
     <img src="{{- .RelPermalink }}" alt="{{- $altText -}}"/>
