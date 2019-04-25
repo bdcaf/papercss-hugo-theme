@@ -1,13 +1,13 @@
 {{- /* 
 from suggestion at https://nilsnh.no/2018/06/10/hugo-how-to-add-support-for-responsive-images-trough-image-processing-and-page-bundles-3/ 
 example use:
-{{< bundle-image name="picture.jpg" alt="Description for screen readers." caption="Some caption" >}}
-
+{{< bundle-image name="picture.jpg" alt="Description for screen readers." caption="Some caption" class="float" >}}
 */ -}}
+
 {{- $caption := .Get "caption" -}}
 {{- $altText := .Get "alt" -}}
 {{- $class := .Get "class" -}}
-{{- with $.Page.Resources.GetMatch (.Get "name") -}}
+{{- with $.Page.Resources.GetMatch (.Get "name") }}
 <figure 
   {{ if $class -}}
   class = "{{$class}}"
