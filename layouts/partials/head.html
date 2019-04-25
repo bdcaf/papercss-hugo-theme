@@ -20,7 +20,7 @@
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="theme-color" content="#ffffff">
 
-  <link rel="stylesheet" type="text/css" href="{{ "css/paper.css" | absURL }}">
+  {{- partialCached "sass-style.html" . -}}
 
   {{ $customCssPath := "css/custom.css" }}
   {{ $customCss:= resources.Get $customCssPath | resources.ExecuteAsTemplate $customCssPath . }}
@@ -29,6 +29,6 @@
   {{ $title := print .Title " | " .Site.Title }}
   {{ if .IsHome }}
     {{ $title = .Site.Title }}
-  {{ end }}
+  {{ end -}}
   <title>{{ $title }}</title>
 </head>

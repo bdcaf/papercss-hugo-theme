@@ -7,6 +7,13 @@ This fork was built as companion to [r-hugo-papercss-template](https://github.co
 
 This branch contains the scss files from [papercss](https://github.com/papercss/papercss) version 1.6.1.
 
+## new dependencies
+
+This theme uses hugos SASS and postcss capabilities.  
+However it needs [node](https://nodejs.org/en/) to be installed to setup required node modules in the project. 
+Run `npm install ci` in the theme folder to set it up.
+
+
 ## Table of contents
 
 - [Demo](#demo)
