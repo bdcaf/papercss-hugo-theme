@@ -11,7 +11,8 @@ This branch contains the scss files from [papercss](https://github.com/papercss/
 
 This theme uses hugos SASS and postcss capabilities.  
 However it needs [node](https://nodejs.org/en/) to be installed to setup required node modules in the project. 
-Run `npm install ci` in the theme folder to set it up.
+Copy the file 'node_modules/' into the site directory (not the theme directory!).
+Run `npm install ci` in the site folder to set it up.
 
 
 ## Table of contents
