@@ -8,31 +8,34 @@ main {
   }
 }
 
-figure {
-  display: inline-block;
-  padding: 0 auto;
-
-  img {
-    border: none;
-  }
-
-  figcaption {
-    text-align: center;
-    color: darkgray;
-  }
-}
-
-.float-left,
-.float-right {
-  max-width: 40%;
-}
-
 .float-left {
   float: left;
 }
 
 .float-right {
   float: right;
+}
+
+figure {
+  margin: auto;
+  display: block;
+
+  img {
+    margin: auto;
+    border: none;
+  }
+
+  figcaption {
+    text-align: center;
+    width: 70%;
+    margin: auto;
+    color: darkgray;
+  }
+
+  .float-left,
+  .float-right {
+    margin: 0.2em;
+  }
 }
 
 pre {

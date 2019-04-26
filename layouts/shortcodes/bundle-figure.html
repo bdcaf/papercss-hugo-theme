@@ -10,14 +10,8 @@ example use:
 {{- $class := .Get "class" -}}
 
 {{- with $.Page.Resources.GetMatch (.Get "name") }}
-<figure 
-  {{- if $class -}}
-  class = "{{$class}}"
-  {{- end -}} >
-  <a href="{{- .RelPermalink -}}">
-    {{- /* image */ -}}
+<figure {{- if $class }} class = "{{$class}}" {{ end -}} >
     <img src="{{- .RelPermalink }}" alt="{{- $altText -}}"/>
-  </a>
   {{- if $caption -}}
   <figcaption><p>{{- $caption -}}</p></figcaption>
   {{- end -}}
