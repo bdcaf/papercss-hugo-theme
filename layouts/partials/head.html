@@ -22,10 +22,6 @@
 
   {{- partialCached "sass-style.html" . -}}
 
-  {{ $customCssPath := "css/custom.css" }}
-  {{ $customCss:= resources.Get $customCssPath | resources.ExecuteAsTemplate $customCssPath . }}
-  <link rel="stylesheet" type="text/css" href="{{ $customCss.Permalink }}">
-
   {{ $title := print .Title " | " .Site.Title }}
   {{ if .IsHome }}
     {{ $title = .Site.Title }}

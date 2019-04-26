@@ -30,11 +30,16 @@ figure {
 .float-left {
   float: left;
 }
+
 .float-right {
   float: right;
 }
 
-pre code {
-  max-height: 50vh;
-  overflow-y: scroll;
+pre {
+  clear: both;
+
+  code {
+    max-height: 50vh;
+    overflow-y: scroll;
+  }
 }
