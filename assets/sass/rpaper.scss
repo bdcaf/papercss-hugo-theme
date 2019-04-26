@@ -16,33 +16,44 @@ main {
   float: right;
 }
 
-figure {
-  margin: auto;
-  display: block;
-
-  img {
-    margin: auto;
-    border: none;
-  }
-
-  figcaption {
-    text-align: center;
-    width: 70%;
-    margin: auto;
-    color: darkgray;
-  }
-
-  .float-left,
-  .float-right {
-    margin: 0.2em;
-  }
-}
-
 pre {
   clear: both;
+  hyphens: none;
 
   code {
     max-height: 50vh;
     overflow-y: scroll;
+  }
+}
+
+article {
+  counter-reset: figures;
+
+  figure {
+    counter-increment: figures;
+    margin: auto;
+    display: block;
+    margin-bottom: 1.2em;
+
+    img {
+      margin: auto;
+      border: none;
+    }
+
+    figcaption {
+      text-align: center;
+      width: 70%;
+      margin: auto;
+      color: darkgray;
+
+      &::before {
+        content: "Fig. " counter(figures) " - ";
+      }
+    }
+
+    .float-left,
+    .float-right {
+      margin: 0.2em;
+    }
   }
 }

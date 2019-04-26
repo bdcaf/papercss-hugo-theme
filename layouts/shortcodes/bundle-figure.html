@@ -13,7 +13,7 @@ example use:
 <figure {{- if $class }} class = "{{$class}}" {{ end -}} >
     <img src="{{- .RelPermalink }}" alt="{{- $altText -}}"/>
   {{- if $caption -}}
-  <figcaption><p>{{- $caption -}}</p></figcaption>
+  <figcaption>{{- $caption -}}</figcaption>
   {{- end -}}
 </figure>
 {{- else -}}
